@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {select, Store} from "@ngrx/store";
+import { Component, OnInit } from '@angular/core';
+import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
-import {map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import { AppState } from './app.reducer';
+import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
         }
       });
 
-      this.isLoggedIn$ = this.store.pipe(map(state => !!state['auth'].user));
-      this.isLoggedOut$ = this.isLoggedIn$.pipe(map(value => !value));
+      this.isLoggedIn$ = this.store.select(isLoggedIn);
+      this.isLoggedOut$ = this.store.select(isLoggedOut);
     }
 
     logout() {

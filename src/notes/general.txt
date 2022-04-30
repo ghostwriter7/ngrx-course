@@ -1,3 +1,5 @@
 1. ng generate store auth/Auth --module auth.module.ts
 2. in dev-tools, after dispatching an action, check 'Action' to see payload
 3. simplifying imports - see actions-types.ts
+4. select operator - removes any duplicates from the stream
+5. selector - keeps last computed value in memory and will reuse it until input (state) changes
