@@ -1,1 +1,2 @@
 1. ng generate store auth/Auth --module auth.module.ts
+2. in dev-tools, after dispatching an action, check 'Action' to see payload
