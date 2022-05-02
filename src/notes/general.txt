@@ -5,3 +5,4 @@
 5. selector - keeps last computed value in memory and will reuse it until input (state) changes
 6. createFeatureSelector<T>(name) - provides type safe feature selector (instead of state => state.feature)
 7. Prevent accidental state mutation by a reducer - implement runtimeChecks (config object of StoreModule.forRoot())
+8. MetaReducer - a reducer that gets executed before actual reducers fire, see logger use case

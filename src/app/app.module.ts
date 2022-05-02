@@ -21,7 +21,7 @@ import { environment } from '../environments/environment';
 import { AuthGuard } from './auth/auth.guard';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { reducers } from './app.reducer';
+import { metaReducers, reducers } from './app.reducer';
 
 
 const routes: Routes = [
@@ -54,7 +54,9 @@ const routes: Routes = [
     MatListModule,
     MatToolbarModule,
     AuthModule.forRoot(),
-    StoreModule.forRoot(reducers, { runtimeChecks: {
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
       strictStateImmutability: true,
       strictActionImmutability: true,
       strictActionSerializability: true,
