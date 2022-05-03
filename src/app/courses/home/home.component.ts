@@ -4,10 +4,9 @@ import {Observable} from "rxjs";
 import {defaultDialogConfig} from '../shared/default-dialog-config';
 import {EditCourseDialogComponent} from '../edit-course-dialog/edit-course-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {map, shareReplay} from 'rxjs/operators';
-import {CoursesHttpService} from '../services/courses-http.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../app.reducer';
+import { selectAdvancedCourses, selectBeginnerCourses, selectPromoTotal } from '../courses.selectors';
 
 
 
@@ -38,7 +37,9 @@ export class HomeComponent implements OnInit {
     }
 
   reload() {
-
+      this.beginnerCourses$ = this.store.select(selectBeginnerCourses);
+      this.advancedCourses$ = this.store.select(selectAdvancedCourses);
+      this.promoTotal$ = this.store.select(selectPromoTotal);
   }
 
   onAddCourse() {
