@@ -9,3 +9,4 @@
 9. NgRx Entities - solves problems with having an array of items with unique ideas - finding an item by an id
 would require looping over an array each time. Instead, use a dictionary with keys being ids and additionally
 an ids array to manage sorting of items.
+10. Configure how entities should be sorted => pass to adapter a config object with sortComparer
