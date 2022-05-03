@@ -6,3 +6,6 @@
 6. createFeatureSelector<T>(name) - provides type safe feature selector (instead of state => state.feature)
 7. Prevent accidental state mutation by a reducer - implement runtimeChecks (config object of StoreModule.forRoot())
 8. MetaReducer - a reducer that gets executed before actual reducers fire, see logger use case
+9. NgRx Entities - solves problems with having an array of items with unique ideas - finding an item by an id
+would require looping over an array each time. Instead, use a dictionary with keys being ids and additionally
+an ids array to manage sorting of items.
