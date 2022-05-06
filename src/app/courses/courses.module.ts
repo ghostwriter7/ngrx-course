@@ -21,10 +21,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {RouterModule, Routes} from '@angular/router';
-import { EntityDefinitionService, EntityMetadataMap} from '@ngrx/data';
+import { EntityDataService, EntityDefinitionService, EntityMetadataMap } from '@ngrx/data';
 
 import { CoursesEntityService } from './services/courses-entity.service';
 import { CoursesResolver } from './services/courses.resolver';
+import { CoursesDataService } from './services/courses-data.service';
 
 
 export const coursesRoutes: Routes = [
@@ -86,13 +87,17 @@ const entityMetadataMap: EntityMetadataMap = {
   providers: [
     CoursesHttpService,
     CoursesEntityService,
-    CoursesResolver
+    CoursesResolver,
+    CoursesDataService
   ]
 })
 export class CoursesModule {
 
-  constructor(private eds: EntityDefinitionService) {
+  constructor(private eds: EntityDefinitionService,
+              private entityDataService: EntityDataService,
+              private coursesDataService: CoursesDataService) {
     this.eds.registerMetadataMap(entityMetadataMap);
+    entityDataService.registerService('Course', coursesDataService);
 
   }
 
