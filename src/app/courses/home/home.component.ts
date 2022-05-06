@@ -6,6 +6,7 @@ import {EditCourseDialogComponent} from '../edit-course-dialog/edit-course-dialo
 import { MatDialog } from '@angular/material/dialog';
 import {map, shareReplay} from 'rxjs/operators';
 import {CoursesHttpService} from '../services/courses-http.service';
+import { CoursesEntityService } from '../services/courses-entity.service';
 
 
 
@@ -17,9 +18,6 @@ import {CoursesHttpService} from '../services/courses-http.service';
 export class HomeComponent implements OnInit {
 
     promoTotal$: Observable<number>;
-
-    loading$: Observable<boolean>;
-
     beginnerCourses$: Observable<Course[]>;
 
     advancedCourses$: Observable<Course[]>;
@@ -27,9 +25,8 @@ export class HomeComponent implements OnInit {
 
     constructor(
       private dialog: MatDialog,
-      private coursesHttpService: CoursesHttpService) {
-
-    }
+      private coursesService: CoursesEntityService
+      ) {}
 
     ngOnInit() {
       this.reload();
@@ -37,29 +34,15 @@ export class HomeComponent implements OnInit {
 
   reload() {
 
-    const courses$ = this.coursesHttpService.findAllCourses()
-      .pipe(
-        map(courses => courses.sort(compareCourses)),
-        shareReplay()
-      );
-
-    this.loading$ = courses$.pipe(map(courses => !!courses));
-
-    this.beginnerCourses$ = courses$
-      .pipe(
-        map(courses => courses.filter(course => course.category == 'BEGINNER'))
-      );
+      this.beginnerCourses$ = this.coursesService.entities$
+      .pipe(map(courses => courses.filter(course => course.category == 'BEGINNER')));
 
 
-    this.advancedCourses$ = courses$
-      .pipe(
-        map(courses => courses.filter(course => course.category == 'ADVANCED'))
-      );
+    this.advancedCourses$ = this.coursesService.entities$
+      .pipe(map(courses => courses.filter(course => course.category == 'ADVANCED')));
 
-    this.promoTotal$ = courses$
-        .pipe(
-            map(courses => courses.filter(course => course.promo).length)
-        );
+    this.promoTotal$ = this.coursesService.entities$
+        .pipe(map(courses => courses.filter(course => course.promo).length));
 
   }
 
