@@ -22,6 +22,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { EffectsModule } from '@ngrx/effects';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { metaReducers, reducers } from './app.reducer';
+import { EntityDataModule } from '@ngrx/data';
 
 
 const routes: Routes = [
@@ -67,7 +68,8 @@ const routes: Routes = [
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
       routerState: RouterState.Minimal
-    })
+    }),
+    EntityDataModule.forRoot({})
   ],
   bootstrap: [AppComponent]
 })

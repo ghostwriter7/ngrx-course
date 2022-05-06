@@ -26,6 +26,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from './courses.effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromCourses from './courses.reducer';
+import { EntityDataModule, EntityDefinitionService, EntityMetadataMap } from '@ngrx/data';
 
 export const coursesRoutes: Routes = [
   {
@@ -41,6 +42,11 @@ export const coursesRoutes: Routes = [
   }
 ];
 
+const entityMetadata: EntityMetadataMap = {
+  Course: {
+
+  }
+};
 
 @NgModule({
   imports: [
@@ -62,7 +68,7 @@ export const coursesRoutes: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(coursesRoutes),
     EffectsModule.forFeature([CoursesEffects]),
-    StoreModule.forFeature(fromCourses.coursesFeatureKey, fromCourses.coursesReducer)
+    StoreModule.forFeature(fromCourses.coursesFeatureKey, fromCourses.coursesReducer),
   ],
   declarations: [
     HomeComponent,
@@ -84,9 +90,7 @@ export const coursesRoutes: Routes = [
 })
 export class CoursesModule {
 
-  constructor() {
-
+  constructor(private eds: EntityDefinitionService) {
+    eds.registerMetadataMap(entityMetadata);
   }
-
-
 }
